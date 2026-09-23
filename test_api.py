@@ -8,7 +8,7 @@ API = "https://gaza-c.online/api.php"
 
 # إعدادات الاختبار
 START = 400000000
-END = 900000000
+END = 450000000
 STEP = 1
 MAX_WORKERS = 200  # عدد الطلبات التي سيتم إرسالها في نفس الوقت (يمكنك زيادتها حسب قوة سيرفرك)
 
@@ -17,7 +17,7 @@ def fetch_id(number):
     test_id = f"{number:09d}"
     params = {
         "id": test_id,
-        "limit": 2500000,
+        "limit": 250000,
         "offset": 0
     }
     
