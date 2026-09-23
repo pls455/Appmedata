@@ -1,0 +1,39 @@
+name: Run API Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  api-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run Python script
+        run: |
+          python test_api.py
+
+      - name: Check result file
+        run: |
+          if [ ! -f test_results_fast.json ]; then
+            echo "ERROR: test_results_fast.json was not created"
+            exit 1
+          fi
+
+          echo "Result file created successfully:"
+          ls -lh test_results_fast.json
+
+      - name: Upload JSON result
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test_results_fast.json
+          retention-days: 7
+          if-no-files-found: error
